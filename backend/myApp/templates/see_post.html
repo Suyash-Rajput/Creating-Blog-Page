@@ -11,7 +11,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Post title</th>
-            <th scope="col">Created at</th>
+            <th scope="col">    </th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -22,11 +22,10 @@
             <td>{{post.title}}</td>
             <td>{{post.created_at}}</td>
             <td>
+                 <a href="{%  url 'add_comment' post.slug %}" class="btn btn-success">Add Comment</a> 
                 <a href="{%  url 'post_update' post.slug %}" class="btn btn-success">Update</a>
                 <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
-
-
-            </td>
+            </td> 
           </tr>
           {% endfor %}
          

@@ -103,6 +103,39 @@ def post_update(request, slug):
     return render(request, 'update_post.html', context)
 
 
+def add_comment(request, slug):
+    context = {}
+    try:
+
+        post_obj = Post.objects.get(slug=slug)
+
+        if post_obj.author != request.user:
+            return redirect('/')
+
+        initial_dict = {'content': post_obj.content}
+        form = postForm(initial=initial_dict)
+        if request.method == 'POST':
+            form = postForm(request.POST)
+            print(request.FILES)
+            image = request.FILES['image']
+            title = request.POST.get('title')
+            user = request.user
+
+            if form.is_valid():
+                content = form.cleaned_data['content']
+
+            post_obj = Post.objects.create(
+                author=user, title=title,
+                content=content, image=image
+            )
+
+        context['post_obj'] = post_obj
+        context['form'] = form
+    except Exception as e:
+        print(e)
+
+    return render(request, 'update_post.html', context)
+
 def post_delete(request, id):
     try:
         post_obj = Post.objects.get(id=id)
