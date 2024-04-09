@@ -8,7 +8,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=1000, null=True, blank=True)
     content = FroalaField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='blog',default='1_tCLgoTtePAdJhGRImx-B-g.jpg')
+    image = models.ImageField(upload_to='post',default='1_tCLgoTtePAdJhGRImx-B-g.jpg')
     published_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

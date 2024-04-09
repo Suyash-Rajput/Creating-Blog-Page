@@ -12,7 +12,7 @@ def logout_view(request):
 
 
 def index(request):
-    context = {'blogs': Post.objects.all()}
+    context = {'posts': Post.objects.all()}
     return render(request, 'home.html', context)
 
 
@@ -20,34 +20,34 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-def blog_detail(request, slug):
+def post_detail(request, slug):
     context = {}
     try:
-        blog_obj = Post.objects.filter(slug=slug).first()
-        context['blog_obj'] = blog_obj
+        post_obj = Post.objects.filter(slug=slug).first()
+        context['post_obj'] = post_obj
     except Exception as e:
         print(e)
-    return render(request, 'blog_detail.html', context)
+    return render(request, 'post_detail.html', context)
 
 
-def see_blog(request):
+def see_post(request):
     context = {}
 
     try:
-        blog_objs = Post.objects.filter(user=request.user)
-        context['blog_objs'] = blog_objs
+        post_objs = Post.objects.filter(user=request.user)
+        context['post_objs'] = post_objs
     except Exception as e:
         print(e)
 
     print(context)
-    return render(request, 'see_blog.html', context)
+    return render(request, 'see_post.html', context)
 
 
-def add_blog(request):
-    context = {'form': BlogForm}
+def add_post(request):
+    context = {'form': postForm}
     try:
         if request.method == 'POST':
-            form = BlogForm(request.POST)
+            form = postForm(request.POST)
             print(request.FILES)
             image = request.FILES.get('image', '')
             title = request.POST.get('title')
@@ -57,31 +57,31 @@ def add_blog(request):
                 print('Valid')
                 content = form.cleaned_data['content']
 
-            blog_obj = Post.objects.create(
+            post_obj = Post.objects.create(
                 user=user, title=title,
                 content=content, image=image
             )
-            print(blog_obj)
-            return redirect('/add-blog/')
+            print(post_obj)
+            return redirect('/add-post/')
     except Exception as e:
         print(e)
 
-    return render(request, 'add_blog.html', context)
+    return render(request, 'add_post.html', context)
 
 
-def blog_update(request, slug):
+def post_update(request, slug):
     context = {}
     try:
 
-        blog_obj = Post.objects.get(slug=slug)
+        post_obj = Post.objects.get(slug=slug)
 
-        if blog_obj.user != request.user:
+        if post_obj.user != request.user:
             return redirect('/')
 
-        initial_dict = {'content': blog_obj.content}
-        form = BlogForm(initial=initial_dict)
+        initial_dict = {'content': post_obj.content}
+        form = postForm(initial=initial_dict)
         if request.method == 'POST':
-            form = BlogForm(request.POST)
+            form = postForm(request.POST)
             print(request.FILES)
             image = request.FILES['image']
             title = request.POST.get('title')
@@ -90,30 +90,30 @@ def blog_update(request, slug):
             if form.is_valid():
                 content = form.cleaned_data['content']
 
-            blog_obj = Post.objects.create(
+            post_obj = Post.objects.create(
                 user=user, title=title,
                 content=content, image=image
             )
 
-        context['blog_obj'] = blog_obj
+        context['post_obj'] = post_obj
         context['form'] = form
     except Exception as e:
         print(e)
 
-    return render(request, 'update_blog.html', context)
+    return render(request, 'update_post.html', context)
 
 
-def blog_delete(request, id):
+def post_delete(request, id):
     try:
-        blog_obj = Post.objects.get(id=id)
+        post_obj = Post.objects.get(id=id)
 
-        if blog_obj.user == request.user:
-            blog_obj.delete()
+        if post_obj.user == request.user:
+            post_obj.delete()
 
     except Exception as e:
         print(e)
 
-    return redirect('/see-blog/')
+    return redirect('/see-post/')
 
 
 def register_view(request):

@@ -5,14 +5,14 @@
 
 <div class="container mt-5">
 
-    <a href="{% url 'see_blog' %}" class="btn btn-warning">View Your blogs</a>
+    <a href="{% url 'see_post' %}" class="btn btn-warning">View Your Post</a>
 
     <form method="post" class="mt-5 pt-5 mb-5 pb-5"
-          enctype="multipart/form-data" action="{% url 'add_blog' %}">
+          enctype="multipart/form-data" action="{% url 'add_post' %}">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-12">
-                <label>Enter blog title</label>
+                <label>Enter post title</label>
                 <input type="text" class="form-control" placeholder="Enter title" name="title">
             </div>
 
@@ -27,7 +27,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Create Blog</button>
+        <button type="submit" class="btn btn-primary mt-4">Create Post</button>
 
     </form>
 
