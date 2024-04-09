@@ -34,7 +34,7 @@ def see_post(request):
     context = {}
 
     try:
-        post_objs = Post.objects.filter(user=request.user)
+        post_objs = Post.objects.filter(author=request.user)
         context['post_objs'] = post_objs
     except Exception as e:
         print(e)
@@ -58,7 +58,7 @@ def add_post(request):
                 content = form.cleaned_data['content']
 
             post_obj = Post.objects.create(
-                user=user, title=title,
+                author=user, title=title,
                 content=content, image=image
             )
             print(post_obj)
@@ -75,7 +75,7 @@ def post_update(request, slug):
 
         post_obj = Post.objects.get(slug=slug)
 
-        if post_obj.user != request.user:
+        if post_obj.author != request.user:
             return redirect('/')
 
         initial_dict = {'content': post_obj.content}
@@ -91,7 +91,7 @@ def post_update(request, slug):
                 content = form.cleaned_data['content']
 
             post_obj = Post.objects.create(
-                user=user, title=title,
+                author=user, title=title,
                 content=content, image=image
             )
 
@@ -107,7 +107,7 @@ def post_delete(request, id):
     try:
         post_obj = Post.objects.get(id=id)
 
-        if post_obj.user == request.user:
+        if post_obj.author == request.user:
             post_obj.delete()
 
     except Exception as e:
