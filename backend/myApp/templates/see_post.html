@@ -22,7 +22,7 @@
             <td>{{post.title}}</td>
             <td>{{post.created_at}}</td>
             <td>
-                 <a href="{%  url 'add_comment' post.slug %}" class="btn btn-success">Add Comment</a> 
+                <a href="{% url 'post_detail' post.slug %}" class="btn btn-success">Add Comment</a> 
                 <a href="{%  url 'post_update' post.slug %}" class="btn btn-success">Update</a>
                 <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
             </td> 

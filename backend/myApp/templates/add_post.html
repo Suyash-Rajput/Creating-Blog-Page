@@ -11,10 +11,10 @@
           enctype="multipart/form-data" action="{% url 'add_post' %}">
         {% csrf_token %}
         <div class="row">
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <label>Enter post title</label>
                 <input type="text" class="form-control" placeholder="Enter title" name="title">
-            </div>
+            </div> -->
 
             <div class="col-md-12">
                 {{form.media}}
