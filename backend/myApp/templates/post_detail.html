@@ -32,25 +32,26 @@
         
 
         {% if comments_objs %}
-            <h4>Comment Details</h4>
-            <table class="table">
-                <tbody>
-                    {% if comments_objs.count == 1 %}
+        <h4>Comment Details</h4>
+        <table class="table">
+            <tbody>
+                {% if comments_objs.count == 1 %}
+                    <tr>
+                        <td><b>1.</b> {{ comments_objs.0.text }}</td>
+                    </tr>
+                {% else %}
+                    {% for comment in comments_objs %}
                         <tr>
-                            <td>{{ comments_objs.0.text }}</td>
+                            <td><b>{{ forloop.counter }}.</b> {{ comment.text }}</td>
                         </tr>
-                    {% else %}
-                        {% for comment in comments_objs %}
-                            <tr>
-                                <td>{{ comment.text }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No comments available.</p>
-        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+    
     </div>
 </section>
 
