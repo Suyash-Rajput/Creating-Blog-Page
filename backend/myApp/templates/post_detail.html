@@ -2,25 +2,35 @@
 {% load static %}
 {% block start %}
 
-
-<<section>
+ <section>
     <div class="container">
-       
         <div class="row text-center">
-            <div class="col-xl-10 mx-auto"><img class="img-fluid mb-5"
-                    src="/media/{{post_obj.image}}"
-                    alt=""></div>
-        </div> 
-
-     <div class="row">
-            <div class="col-xl-8 col-lg-10 mx-auto">
-                <label class="form-label" style="font-size :15px; color: black">"Content"</label>
-                <div class="col-md-12">
-                    {{post_obj.content|safe}}
-                </div>
+            <div class="col-xl-10 mx-auto">
+                {% if post_obj.image %}
+                    <img class="img-fluid mb-5" src="{{ post_obj.image.url }}" alt="{{ post_obj.image }}">
+                {% endif %}
             </div>
         </div> 
+        <div class="row">
+            <div class="col-xl-8 col-lg-10 mx-auto">
+                <div class="col-md-12">    
+                    <label class="form-label" style="font-size: 20px; color: black">Content - </label>
+                    <label class="form-label" style="border: 0.5px solid rgba(0, 0, 0, 0.862);color: black; padding: 10px; border-radius: 5px; border-radius: 5px; width: 100%;">{{ post_obj.content }}</label>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <a href="{% url 'add_comment' post_obj.slug %}" class="btn btn-success">Add Comment</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
-</section>
+
+
 
 {% endblock %}
