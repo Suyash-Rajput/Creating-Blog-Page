@@ -146,6 +146,17 @@ def post_delete(request, id):
 
     return redirect('/see-post/')
 
+def comment_delete(request, id, slug):
+    try:
+        comment_obj = Comment.objects.get(id=id)
+        
+        if comment_obj.author == request.user:
+            comment_obj.delete()
+
+    except Exception as e:
+        print(e)
+
+    return redirect('post_detail', slug=slug)
 
 def register_view(request):
     return render(request, 'register.html')

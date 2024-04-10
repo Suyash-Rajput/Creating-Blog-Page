@@ -43,7 +43,11 @@
                     {% for comment in comments_objs %}
                         <tr>
                             <td><b>{{ forloop.counter }}.</b> {{ comment.text }}</td>
+                            <td>
+                                <a href="{% url 'comment_delete' comment.id post_obj.slug %}" class="btn btn-danger">Delete</a>
+                            </td> 
                         </tr>
+                        
                     {% endfor %}
                 {% endif %}
             </tbody>
