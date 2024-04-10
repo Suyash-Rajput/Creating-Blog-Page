@@ -30,13 +30,26 @@
             </div>
         </div>
         
-        <!-- Display comment details if available -->
-        {% if comment_obj %}
-        <div>
-            <h3>Comment Details</h3>
-            <p>{{ comment_obj.content }}</p>
-            <!-- You can display other details of the comment as needed -->
-        </div>
+
+        {% if comments_objs %}
+            <h4>Comment Details</h4>
+            <table class="table">
+                <tbody>
+                    {% if comments_objs.count == 1 %}
+                        <tr>
+                            <td>{{ comments_objs.0.text }}</td>
+                        </tr>
+                    {% else %}
+                        {% for comment in comments_objs %}
+                            <tr>
+                                <td>{{ comment.text }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No comments available.</p>
         {% endif %}
     </div>
 </section>

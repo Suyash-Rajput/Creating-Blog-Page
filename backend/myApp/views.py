@@ -23,10 +23,13 @@ def login_view(request):
 def post_detail(request, slug):
     context = {}
     try:
-        post_obj = Post.objects.filter(slug=slug).first()
+        post_obj = Post.objects.get(slug=slug)
         context['post_obj'] = post_obj
-        comment_obj = post_obj.comments
-        context['comment_obj'] = comment_obj
+        comments_objs = Comment.objects.filter(post=post_obj)
+        if comments_objs.count() == 1:
+            comments_objs = [comments_objs.first()]
+        context['comments_objs'] = comments_objs
+        print(comments_objs)
     except Exception as e:
         print(e)
     return render(request, 'post_detail.html', context)
@@ -123,8 +126,8 @@ def add_comment(request, slug):
         if form.is_valid():
             author = request.user
             text = form.cleaned_data['content']
-            new_comment = Comment(post=post, author=author, text=text)
-            new_comment.save()
+            new_comment = Comment.objects.create(post=post, author=author, text=text)
+            print(new_comment)
             return redirect('post_detail', slug=slug)
         else:
             context['form'] = form
