@@ -4,25 +4,16 @@
 
 
 <div class="container mt-5">
-
-    <a href="{% url 'see_post' %}" class="btn btn-warning">View Your Post</a>
-
     <form method="post" class="mt-5 pt-5 mb-5 pb-5"
-          enctype="multipart/form-data" action="{% url 'add_post' %}">
+          enctype="multipart/form-data" action="{% url 'add_comment' post_obj.slug %}">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-12">
                 {{form.media}}
                 {{form.as_p}}
             </div>
-
-            <div class="col-md-12">
-                <input type="file" name="image" class="form-control" >
-            </div>
-
         </div>
-
-        <button type="submit" class="btn btn-primary mt-4">Create Post</button>
+        <button type="submit" class="btn btn-primary mt-4">Create Comment</button>
 
     </form>
 

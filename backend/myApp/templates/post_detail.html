@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block start %}
 
- <section>
+<section>
     <div class="container">
         <div class="row text-center">
             <div class="col-xl-10 mx-auto">
@@ -15,7 +16,7 @@
             <div class="col-xl-8 col-lg-10 mx-auto">
                 <div class="col-md-12">    
                     <label class="form-label" style="font-size: 20px; color: black">Content - </label>
-                    <label class="form-label" style="border: 0.5px solid rgba(0, 0, 0, 0.862);color: black; padding: 10px; border-radius: 5px; border-radius: 5px; width: 100%;">{{ post_obj.content }}</label>
+                    <label class="form-label" style="border: 0.5px solid rgba(0, 0, 0, 0.862); color: black; padding: 10px; border-radius: 5px; border-radius: 5px; width: 100%;">{{ post_obj.content }}</label>
                     <table class="table">
                         <tbody>
                             <tr>
@@ -28,9 +29,16 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- Display comment details if available -->
+        {% if comment_obj %}
+        <div>
+            <h3>Comment Details</h3>
+            <p>{{ comment_obj.content }}</p>
+            <!-- You can display other details of the comment as needed -->
+        </div>
+        {% endif %}
     </div>
-
-
+</section>
 
 {% endblock %}
